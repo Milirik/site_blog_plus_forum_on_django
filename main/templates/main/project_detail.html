@@ -1,0 +1,18 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}
+	{{ block.super }} - {{ post.title|truncatechars:15 }}
+{% endblock %}
+
+{% block content %}
+	
+	<h2>{{ project.title }}</h2>
+
+	<p class="date_pub">{{ project.date_pub }}</p>
+
+	<p>{{ project.description }}</p>
+	{% if project.image %}
+		<img class="posts_image" src="{{ project.image.url }}" >
+	{% endif %}	
+	<p>{{ project.content|safe }}</p>	
+{% endblock %}

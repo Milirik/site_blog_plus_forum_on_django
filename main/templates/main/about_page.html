@@ -1,0 +1,12 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}
+	{{ block.super }} - About me
+{% endblock title %}
+
+
+{% block content %}
+	<h1 class="">About me</h1>
+	<hr>
+	<p>Всем привет! Меня зовут Кирилл. Я начинающий разработчик, а сайт на котором вы сейчас находитесь - мой блог. Он почти первый из моих серьезных проектов. Надюсь пребывание на моем сайте Вам понравится! Если выхотите связаться со мной, вы можете <a class="links" href="{% url 'main:contacts_name' %}" style="color:#3ba2b9">написать мне.</a> Или найти меня в соцсетях.</p>
+{% endblock content %}

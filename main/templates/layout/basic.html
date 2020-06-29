@@ -1,0 +1,49 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<meta name="viewport" content="width=device-width, initial=scale=1, shrink-to-fit=no">
+	<title>{% block title %}Blog - M. Kirill{% endblock %}</title>
+	{% bootstrap_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	{% bootstrap_javascript jquery='slim' %}
+	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
+</head>
+
+<body>
+	<nav class="container nav nav-pills nav-fill">
+	  	<a class="boton1" href="{% url 'main:index_name'%}">Main</a>
+	  	<a class="boton2" href="">Forum</a>
+	  	<a class="boton1" href="{% url 'main:projects_name' %}">Projects</a>
+	  	<img class='logo' src="{% static 'img/mk.jpg' %}">
+	  	<a class="boton1" href="{% url 'main:articles_name' %}">Articles</a>
+	  	<a class="boton1" href="{% url 'main:about_name' %}">About</a>
+	  	<a class="boton1" href="{% url 'main:contacts_name' %}">Contacts</a>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="main">
+			{% bootstrap_messages %}
+
+			{% block content %}{% endblock content %}
+		</div>
+	</div>
+
+	<div class="footer mt-5 pt-4" >
+		<h5 style="color:white">Я в социальных сетях</h3>
+		<a href="https://vk.com/heycrazypeople">
+			<img class='icon' src="{% static 'img/vk.png' %}">
+		</a>
+		<a href="https://github.com/Milirik">
+			<img class='icon' src="{% static 'img/github.png' %}">
+		</a>
+		<a href="https://t.me/kirill_109">
+			<img class='icon' src="{% static 'img/telegram.png' %}">
+		</a>
+		<p class="mt-3" style="color:white">©2020</p>
+	</div>
+</body>
+
+</html>

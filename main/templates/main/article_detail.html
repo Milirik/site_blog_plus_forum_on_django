@@ -1,0 +1,16 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}
+	{{ block.super }} - {{ post.title|truncatechars:15 }}
+{% endblock %}
+
+
+
+{% block content %}
+	
+	<h2>{{ article.title }}</h2>
+	<p class="date_pub">{{ post.date_pub }}</p>
+	<p>{{ article.description }}</p>
+	<hr>	
+	<p>{{ article.content|safe }}</p>	
+{% endblock %}

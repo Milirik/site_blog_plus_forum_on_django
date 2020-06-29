@@ -1,0 +1,31 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}
+	{{ block.super }} - Contacts
+{% endblock title %}
+
+
+{% block content %}
+	<h1 class="">Contacts</h1>
+	<hr>
+	<h4>Я в ВКонтакте - <a class="links" href="https://vk.com/heycrazypeople">heycrazypeople</a></h4>
+	<h4>Я на GitHub - <a class="links" href="https://github.com/Milirik">Milirik</a></h4>
+	<h4>Я в Telegram - <a class="links" href="https://t.me/kirill_109">kirill_109</a></h4>
+	<hr>
+	<h2>Вы можете отправить мне письмо :)</h2>
+	<form method="post">
+		{% csrf_token %}
+
+		{% bootstrap_field form.name placeholder=''%}
+		{% bootstrap_field form.body placeholder=''%}
+
+		{% bootstrap_field form.captcha form_group_class='new' placeholder=''%}
+		
+		<div class="mt-4">
+			{% bootstrap_button button_class='btn btn-info' content='Отправить' button_type='submit' %}
+		</div>
+	</form>
+{% endblock content %}

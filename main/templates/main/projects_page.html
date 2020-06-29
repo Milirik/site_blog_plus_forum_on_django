@@ -1,0 +1,26 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}
+	{{ block.super }} - Projects
+{% endblock title %}
+
+{% block content %}
+	<h1 class="">Projects</h1>
+	<hr>
+	<div class="row">
+		{% for project in projects %}
+			<div class="col-md-4 mt-3">
+				<div class="card" style="max-height:500px;min-height:500px;">
+					{% if project.image %}
+						<a href="{% url 'main:project_detail_name' pk=project.pk%}"><img class="card-img-top" src="{{ project.image.url }}" alt="Card image cap"></a>
+					{% endif %}
+					<div class="card-body">
+						<h4><a class="links" href="{% url 'main:project_detail_name' pk=project.pk%}">{{ project.title }}</a></h4>
+						<p class="date_pub">{{ project.date_pub }}</p>
+						<p class="card-text">{{ project.description }}</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock content %}

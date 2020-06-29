@@ -1,0 +1,12 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}
+	{{ block.super }} - About me
+{% endblock title %}
+
+
+{% block content %}
+	<h1>Page Not Found</h1>
+	<hr>
+	<h2><a href="{% url 'main:index_name' %}">Main page</a></h2>
+{% endblock content %}
