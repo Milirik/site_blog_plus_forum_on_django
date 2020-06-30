@@ -1,8 +1,7 @@
 from django.db import models
 from datetime import datetime  #.utilities
 from os.path import splitext #.utilities
-
-# from .utilities import get_timestamp_path 
+from ckeditor.fields import RichTextField
 
 def get_timestamp_path(instance, filename):
 	return '%s%s' % (datetime.now().timestamp(), splitext(filename)[1])
@@ -11,7 +10,7 @@ def get_timestamp_path(instance, filename):
 class Post(models.Model):
 	title = models.CharField(max_length=100, db_index=True, verbose_name='Название поста')
 	description = models.TextField(max_length=2000,blank=True, verbose_name='Краткое описание поста')
-	content = models.TextField(max_length=2000, verbose_name='Текст поста')
+	content = RichTextField(max_length=2000, verbose_name='Текст поста')
 	date_pub = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации поста')
 	image = models.ImageField(blank=True, upload_to=get_timestamp_path,  verbose_name='Изображение') 
 	tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
@@ -29,7 +28,7 @@ class Post(models.Model):
 class Project(models.Model):
 	title = models.CharField(max_length=30, db_index=True, verbose_name='Название проекта')
 	description = models.TextField(max_length=180,blank=True, verbose_name='Краткое описание проекта')
-	content = models.TextField(blank=True, db_index=True, verbose_name='Описание проекта')
+	content =RichTextField(blank=True, db_index=True, verbose_name='Описание проекта')
 	date_pub = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации проекта')
 	image = models.ImageField(blank=True, null=True, upload_to=get_timestamp_path, verbose_name='Изображение')
  	 
@@ -59,7 +58,7 @@ class Feedback(models.Model):
 class Article(models.Model):
 	title = models.CharField(max_length=150, db_index=True, verbose_name='Название статьи')
 	description = models.TextField(max_length=2000, db_index=True, verbose_name='Краткое описание статьи')
-	content = models.TextField(blank=True, db_index=True, verbose_name='Текст статьи')
+	content = RichTextField(blank=True, db_index=True, verbose_name='Текст статьи')
 	date_pub = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
 
 	def __str__(self):
@@ -88,3 +87,16 @@ class Tag(models.Model):
 	class Meta:
 		verbose_name='Тэг'
 		verbose_name_plural = 'Тэги'
+
+class AboutPage(models.Model):
+	name = models.CharField(max_length=150, verbose_name='Имя')
+	age = models.CharField(max_length=150, verbose_name='Возраст')
+	technology_stack = models.TextField(blank=True, verbose_name='Стэк технологий')
+	image = models.ImageField(blank=True, null=True, upload_to=get_timestamp_path, verbose_name='Изображение')
+	info = RichTextField(blank=True, verbose_name='Дополнительная информация')
+
+	def __str__(self):
+		return f'{self.name}'
+
+	class Meta:
+		verbose_name='Про меня'

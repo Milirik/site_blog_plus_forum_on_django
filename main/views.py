@@ -8,7 +8,7 @@ from django.db.models import Q
 
 import random
 
-from .models import Post, Project, Feedback, Article, Tag
+from .models import Post, Project, Feedback, Article, Tag, AboutPage
 from .forms import FeedbackForm, SearchForm
 from .utilities import generations_for_main_page
 
@@ -57,7 +57,8 @@ def articles(request):
 	return render(request, 'main/articles_page.html', context)
 
 def about(request):
-	return render(request, 'main/about_page.html', context={})
+	me = AboutPage.objects.first()
+	return render(request, 'main/about_page.html', context={'me':me})
 
 def contacts(request):
 	form = FeedbackForm()
@@ -94,3 +95,5 @@ def article_detail(request, pk):
 
 
 #Errors
+def my_custom_page_not_found_view(request, exception):
+	return render(request, 'main/404.html', context={})

@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls', namespace='')),
     path('captcha/', include('captcha.urls')),
+    path('forum/', include('forum.urls', namespace=''))
 ]
 
 if settings.DEBUG:

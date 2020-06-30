@@ -5,6 +5,8 @@ from .views import *
 
 app_name = 'main'
 
+handler404 = 'main.views.my_custom_page_not_found_view'
+
 urlpatterns = [
     path('', index, name='index_name'),
     path('with_tag/<int:id_tag>', by_tag, name='by_tag_name'),

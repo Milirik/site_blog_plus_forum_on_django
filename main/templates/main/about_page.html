@@ -6,7 +6,21 @@
 
 
 {% block content %}
-	<h1 class="">About me</h1>
-	<hr>
-	<p>Всем привет! Меня зовут Кирилл. Я начинающий разработчик, а сайт на котором вы сейчас находитесь - мой блог. Он почти первый из моих серьезных проектов. Надюсь пребывание на моем сайте Вам понравится! Если выхотите связаться со мной, вы можете <a class="links" href="{% url 'main:contacts_name' %}" style="color:#3ba2b9">написать мне.</a> Или найти меня в соцсетях.</p>
+	<div class="row">
+		<div class="col-md-6">
+			<h1 class="">About me</h1>
+			<hr>
+			<h4>My name: {{ me.name }}</h4>
+			<h4>Age: {{ me.age }}</h4>
+			<h4>Technology stack: {{ me.technology_stack }}</h4>
+			
+			<h4>Additional information about me:</h4>{{ me.info|safe }}
+		</div>
+		<div class="col-md-6">
+			<p>{% if me.image %}
+				<img class="posts_image" src="{{ me.image.url }}" >
+			{% endif %}	
+			</p>
+		</div>
+	</div>
 {% endblock content %}

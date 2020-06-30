@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Project, Feedback, Article, Tag
+from .models import Post, Project, Feedback, Article, Tag, AboutPage
 
 def short_content_for_admin_panel(obj):
 	"""Выводит в админке сокращенный текст"""
@@ -40,3 +40,4 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Feedback, FeedbackAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(AboutPage)
