@@ -1,0 +1,45 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+	<meta name="viewport" content="width=device-width, initial=scale=1, shrink-to-fit=no">
+	<title>{% block title %}Forum - M. Kirill{% endblock %}</title>
+	{% bootstrap_css %}
+	<link rel="stylesheet" type="text/css" href="{% static "style_forum.css" %}">
+	{% bootstrap_javascript jquery='slim' %}
+	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
+
+<body>
+	<div class="nav">
+		<div><a class="forum_main_word" href="#">Forum</a></div>
+		<div><a class="sign_main_word" href="#">Sign in/Sign up</a></div>
+	</div>
+			
+	<div class="container mt-5" >
+		<div class="main">
+			{% bootstrap_messages %}
+
+			{% block content %}{% endblock content %}
+		</div>
+	</div>
+
+	<div class="footer" >
+		<!--
+		<h5 style="color:white">Я в социальных сетях</h3>
+		<a href="https://vk.com/heycrazypeople">
+			<img class='icon' src="{% static 'img/vk.png' %}">
+		</a>
+		<a href="https://github.com/Milirik">
+			<img class='icon' src="{% static 'img/github.png' %}">
+		</a>
+		<a href="https://t.me/kirill_109">
+			<img class='icon' src="{% static 'img/telegram.png' %}">
+		</a>-->
+		<p><img class='logo' src="{% static 'img/mk.jpg' %}">
+		<a class="url_blog" href="{% url 'main:index_name' %}">Блог создателя</a></p>
+	</div>
+</body>
+
+</html>

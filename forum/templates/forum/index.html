@@ -1,0 +1,20 @@
+{% extends "layout/basic_forum.html" %}
+
+{% block title %}
+	{{ block.super }}
+{% endblock title %}
+
+{% block content %}
+	{% for category in categories %}
+	<div>
+		<b>{{ category.name }}</b>
+		{% for discuss in discussions %}
+		<div>
+			{% if discuss.category == category %}
+				{{ discuss.title }}
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	{% endfor %}
+{% endblock content %}
