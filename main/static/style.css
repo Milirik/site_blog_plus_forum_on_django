@@ -29,8 +29,10 @@ img.card-img-top:hover {
 }
 
 .footer {
-   height:150px;   
-    background-color: #333333;
+  height:150px;   
+  background-color: #333333;
+  min-height: 100px;
+  text-align: center;
   /* background-color:  #CCCCCC;*/
 }
 
@@ -60,7 +62,7 @@ a.boton2{
   font-size: 20px;
   }
  a.boton2:hover{
-  box-shadow:0px -5px 0 #f77b55 inset;
+  box-shadow:0px -5px 0 #ff4a4a inset;
 }
 
 .date_pub{
@@ -103,11 +105,5 @@ a.links:hover {
   max-width: 100%;
   height: auto;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-
-.footer{
-  min-height: 100px;
-  text-align: center;
 }
 

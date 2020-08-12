@@ -13,10 +13,9 @@
 </head>
 
 <body>
-	
-	<nav class="container nav nav-pills nav-fill">
+	<nav class="container nav nav-pills nav-fill" >
 	  	<a class="boton1" href="{% url 'main:index_name'%}">Main</a>
-	  	<a class="boton2" href="">Forum</a>
+	  	<a class="boton2" href="{% url 'forum:index_name' %}">Forum</a>
 	  	<a class="boton1" href="{% url 'main:projects_name' %}">Projects</a>
 	  	<img class='logo' src="{% static 'img/mk.jpg' %}">
 	  	<a class="boton1" href="{% url 'main:articles_name' %}">Articles</a>
@@ -24,7 +23,7 @@
 	  	<a class="boton1" href="{% url 'main:contacts_name' %}">Contacts</a>
 	</nav>
 
-	<div class="container mt-5">
+	<div class="container mt-5" >
 		<div class="main">
 			{% bootstrap_messages %}
 

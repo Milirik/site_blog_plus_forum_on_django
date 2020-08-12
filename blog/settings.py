@@ -33,6 +33,8 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 CAPTCHA_IMAGE_SIZE = (200, 70)
 CAPTCHA_FONT_SIZE = (28)
 
+AUTH_USER_MODEL = 'forum.AdvUser'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
-    'forum',
+    'main.apps.MainConfig',
+    'forum.apps.ForumConfig',
     'bootstrap4',
     'social_django',
     'django_cleanup',
