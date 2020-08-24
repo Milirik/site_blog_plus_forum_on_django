@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from .utilities import get_timestamp_path
+import random
 
 # Users
 class AdvUser(AbstractUser):
 	is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Прошел активацию?')
 	send_messages = models.BooleanField(default=True, verbose_name='Слать оповещения о новых комментариях?')
-	text = models.CharField(max_length=20, default='Привет')
+	image = models.ImageField(blank=True, default=f'cats/cat{random.randint(1,3)}.jpg', upload_to=get_timestamp_path, verbose_name='Изображение')
 
 	class Meta(AbstractUser.Meta):
 		pass

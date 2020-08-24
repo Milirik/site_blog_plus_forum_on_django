@@ -11,6 +11,7 @@ urlpatterns = [
     path('', index, name='index_name'),
     path('with_tag/<int:id_tag>', by_tag, name='by_tag_name'),
     path('forum/', include('forum.urls', namespace='')),
+    path('accounts/', include('forum.urls', namespace='')),
     path('projects/', projects, name='projects_name'),
     path('articles/', articles, name='articles_name'),
     path('about/', about, name='about_name'),

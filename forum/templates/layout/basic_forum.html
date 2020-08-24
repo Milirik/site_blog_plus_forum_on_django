@@ -13,30 +13,38 @@
 
 <body>
 	<div class="nav">
-		<div><a class="forum_main_word" href="#">Forum</a></div>
-		<div><a class="sign_main_word" href="#">Sign in/Sign up</a></div>
+		<div><a class="forum_main_word" href="{% url 'forum:index_name' %}">Forum</a></div>
+		{% if user.is_authenticated %}
+			<div><a class="sign_main_word" href="{% url 'forum:logout_name' %}">Log out of {{ user.username }}'s profile</a></div>
+		{% else %}
+		<div><a class="sign_main_word" href="{% url 'forum:login_name' %}">Sign in/Sign up</a></div>
+		{% endif %}
+
 	</div>
-			
+	
 	<div class="container mt-5" >
 		<div class="main">
-			{% bootstrap_messages %}
+			<div class="row">
+				<div class="col-lg-8">
+				{% bootstrap_messages %}
 
-			{% block content %}{% endblock content %}
+				{% block content %}{% endblock content %}
+				</div>
+				<div class="col-lg-4">
+					{% if user.is_authenticated %}
+						<div><a href="{% url 'forum:profile_name' %}">{{ user.username }}</a></div>
+						{% if user.first_name and user.last_name%}
+							{{ user.first_name }} {{ user.last_name }}
+						{% endif %}
+						<img src="{{ user.image.url }}">
+					{% endif %}
+				</div>
+
+			</div>		
 		</div>
 	</div>
 
 	<div class="footer" >
-		<!--
-		<h5 style="color:white">Я в социальных сетях</h3>
-		<a href="https://vk.com/heycrazypeople">
-			<img class='icon' src="{% static 'img/vk.png' %}">
-		</a>
-		<a href="https://github.com/Milirik">
-			<img class='icon' src="{% static 'img/github.png' %}">
-		</a>
-		<a href="https://t.me/kirill_109">
-			<img class='icon' src="{% static 'img/telegram.png' %}">
-		</a>-->
 		<p><img class='logo' src="{% static 'img/mk.jpg' %}">
 		<a class="url_blog" href="{% url 'main:index_name' %}">Блог создателя</a></p>
 	</div>

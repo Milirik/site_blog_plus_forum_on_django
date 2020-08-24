@@ -10,7 +10,7 @@ body {
 
 .nav{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -32,7 +32,7 @@ a.forum_main_word:hover{
 a.sign_main_word{
   text-decoration: none;
   color: black;
-  font-size: 25px; 
+  font-size: 20px; 
   line-height: 24px; 
   font-weight: 700; 
   margin: 30px;
