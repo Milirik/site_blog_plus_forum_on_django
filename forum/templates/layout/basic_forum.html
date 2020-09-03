@@ -15,7 +15,10 @@
 	<div class="nav">
 		<div><a class="forum_main_word" href="{% url 'forum:index_name' %}">Forum</a></div>
 		{% if user.is_authenticated %}
-			<div><a class="sign_main_word" href="{% url 'forum:logout_name' %}">Log out of {{ user.username }}'s profile</a></div>
+			<div>
+				<a class="sign_main_word" href="{% url 'forum:profile_name' %}">{{ user.username }}</a>
+				<a style="font-size: 20px;" class="sign_main_word" href="{% url 'forum:logout_name' %}">( Sign out )</a>
+			</div>
 		{% else %}
 		<div><a class="sign_main_word" href="{% url 'forum:login_name' %}">Sign in/Sign up</a></div>
 		{% endif %}
@@ -32,11 +35,22 @@
 				</div>
 				<div class="col-lg-4">
 					{% if user.is_authenticated %}
-						<div><a href="{% url 'forum:profile_name' %}">{{ user.username }}</a></div>
-						{% if user.first_name and user.last_name%}
-							{{ user.first_name }} {{ user.last_name }}
+						{% if  user.image %}
+							<img class="profile_photo" src="{{ user.image.url }}">
+						
 						{% endif %}
-						<img src="{{ user.image.url }}">
+						
+
+						<div>
+							<a class='url' href="{% url 'forum:profile_name' %}">{{ user.username }}</a>
+						</div>
+
+						{% if user.first_name and user.last_name%}
+							<p>{{ user.first_name }} {{ user.last_name }}
+							<p>Дата регистрации </p>
+							<p>{{ user.date_joined }}</p>
+						{% endif %}
+					
 					{% endif %}
 				</div>
 
