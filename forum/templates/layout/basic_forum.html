@@ -30,30 +30,18 @@
 			<div class="row">
 				<div class="col-lg-8">
 				{% bootstrap_messages %}
-
 				{% block content %}{% endblock content %}
 				</div>
 				<div class="col-lg-4">
 					{% if user.is_authenticated %}
-						{% if  user.image %}
+						{% if user.image %}
 							<img class="profile_photo" src="{{ user.image.url }}">
-						
 						{% endif %}
-						
-
-						<div>
-							<a class='url' href="{% url 'forum:profile_name' %}">{{ user.username }}</a>
-						</div>
-
-						{% if user.first_name and user.last_name%}
-							<p>{{ user.first_name }} {{ user.last_name }}
-							<p>Дата регистрации </p>
-							<p>{{ user.date_joined }}</p>
-						{% endif %}
-					
+						<p style="text-align: center">
+							<a href="{% url 'forum:profile_name' %}" class="url">{{ user.username }}</a>
+						</p>
 					{% endif %}
 				</div>
-
 			</div>		
 		</div>
 	</div>

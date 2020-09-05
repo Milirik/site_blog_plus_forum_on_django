@@ -6,6 +6,33 @@
 
 {% block content %}
 	<h2>Профиль пользователя {{ user.username }}</h2>
-	<p><a href="{% url 'forum:profile_change_name' %}">Изменить данные</a></p>
-	<p><a href="{% url 'forum:password_change_name' %}">Изменить пароль</a></p>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				
+				{% if user.image %}
+					<img class="profile_photo" src="{{ user.image.url }}">	
+				{% endif %}
+
+			</div>
+			<div class="col-lg-6">
+				<p>Имя профиля: {{user.username}}</p>
+				<p>Ваше имя: {{ user.first_name }} {{ user.last_name }}</p>
+				<p>Email: {{ user.email }}</p>
+				<p>Дата регистрации: {{ user.date_joined }}</p>
+				<div class="btn-group">
+					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Настройка
+					</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{% url 'forum:profile_change_name' %}">Изменить данные</a>
+						<a class="dropdown-item" href="{% url 'forum:password_change_name' %}">Изменить пароль</a>
+						<!-- <div class="dropdown-divider"></div> -->
+					</div>
+				</div>
+			</div>
+
+		</div>	
+
+	</div>
 {% endblock content %}

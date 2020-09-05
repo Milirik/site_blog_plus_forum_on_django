@@ -86,6 +86,8 @@ img.logo{
 }
 
 img.profile_photo{
-  width: auto;
-  height: 25vh;
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+  max-height: 200px;
 }

@@ -18,6 +18,7 @@ def user_registerated_dispatcher(sender, **kwargs):
 
 user_registrated.connect(user_registerated_dispatcher)
 
+
 class AdvUser(AbstractUser):
 	is_activated = models.BooleanField(default=True, db_index=True, verbose_name='Прошел активацию?')
 	send_messages = models.BooleanField(default=True, verbose_name='Слать оповещения о новых комментариях?')
@@ -43,6 +44,7 @@ class Category(models.Model):
 class Discussion(models.Model):
 	title = models.TextField(max_length=200, db_index=True, verbose_name='Обсуждение')
 	category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.PROTECT, null=False)
+	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
 		return f'Обсуждение "{self.title[:10]}.."'
