@@ -29,20 +29,6 @@ a.forum_main_word:hover{
   box-shadow: 0px 0px 12px 12px rgba(255, 74, 74, 0.17);
 }
 
-a.sign_main_word{
-  text-decoration: none;
-  color: black;
-  font-size: 25px; 
-  line-height: 24px; 
-  font-weight: 700; 
-  margin: 30px 0 30px 20px;
-  display:inline-block;
-  transition:all 0.3s;
-  font-family: ‘Libre Baskerville’, serif;
-}
-a.sign_main_word:hover{
-   box-shadow:0px 3px 0 #ff4a4a;
-}
 
 a.url_blog{
   text-decoration: none;
@@ -72,6 +58,21 @@ a.url:hover{
    box-shadow:0px 3px 0 #ff4a4a;
 }
 
+a.url_default{
+  text-decoration: none;
+  color: #ff4a4a;
+  font-size: 25px; 
+  line-height: 24px; 
+  font-weight: 700; 
+  transition:all 0.4s;
+  font-family: ‘Libre Baskerville’, serif;
+}
+a.url_default:hover{
+  color: black;
+  box-shadow:0px 3px 0 #ff4a4a;
+}
+
+
 .footer {
   height:100px;   
   min-height: 100px;
@@ -91,3 +92,4 @@ img.profile_photo{
   width: 100%;
   max-height: 200px;
 }
+

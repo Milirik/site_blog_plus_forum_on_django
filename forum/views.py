@@ -19,11 +19,10 @@ from .utilities import signer
 # Pages
 def index(request):
 	categories = Category.objects.all()
-	discussions = Discussion.objects.all()
+
 	return render(request, 'forum/index.html', 
 		context={
 		'categories':categories,
-		'discussions':discussions,
 		})
 
 # User

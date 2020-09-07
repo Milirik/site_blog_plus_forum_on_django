@@ -16,11 +16,10 @@
 		<div><a class="forum_main_word" href="{% url 'forum:index_name' %}">Forum</a></div>
 		{% if user.is_authenticated %}
 			<div>
-				<a class="sign_main_word" href="{% url 'forum:profile_name' %}">{{ user.username }}</a>
-				<a style="font-size: 20px;" class="sign_main_word" href="{% url 'forum:logout_name' %}">( Sign out )</a>
+				<a style="margin: 30px 0 30px 20px; display:inline-block;" class="url_default" href="{% url 'forum:profile_name' %}">{{ user.username }}</a>
 			</div>
 		{% else %}
-		<div><a class="sign_main_word" href="{% url 'forum:login_name' %}">Sign in/Sign up</a></div>
+		<div><a style="margin: 30px 0 30px 20px; display:inline-block;"  class="url_default" href="{% url 'forum:login_name' %}">Вход/Регистрация</a></div>
 		{% endif %}
 
 	</div>
@@ -38,7 +37,8 @@
 							<img class="profile_photo" src="{{ user.image.url }}">
 						{% endif %}
 						<p style="text-align: center">
-							<a href="{% url 'forum:profile_name' %}" class="url">{{ user.username }}</a>
+							<a href="{% url 'forum:profile_name' %}" class="url_default">{{ user.username }}</a>
+							<a style="font-size: 20px;margin: 30px 0 30px 20px; display:inline-block;" class="url_default" href="{% url 'forum:logout_name' %}">(Выйти)</a>
 						</p>
 					{% endif %}
 				</div>

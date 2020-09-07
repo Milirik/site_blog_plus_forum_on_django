@@ -9,7 +9,6 @@ from .utilities import get_timestamp_path, send_activation_notification
 import random
 
 
-
 # Users
 user_registrated = Signal(providing_args=['instance'])
 
@@ -42,13 +41,30 @@ class Category(models.Model):
 
 
 class Discussion(models.Model):
-	title = models.TextField(max_length=200, db_index=True, verbose_name='Обсуждение')
+	text = models.TextField(max_length=200, db_index=True, verbose_name='Текст обсуждения')
 	category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.PROTECT, null=False)
 	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
+	date_of_creation = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Создано')
+	rating = models.IntegerField(default=0, verbose_name='Рейтинг')
 
 	def __str__(self):
-		return f'Обсуждение "{self.title[:10]}.."'
+		return f'Обсуждение "{self.text[:10 if len(self.text)>10 else -1]}.."'
 
 	class Meta:
 		verbose_name = 'Обсуждение'
 		verbose_name_plural = 'Обсуждения'
+
+
+class Answer(models.Model):
+	text = models.TextField(max_length=200, db_index=True, verbose_name='Текст ответа')
+	discussion = models.ForeignKey(Discussion, verbose_name='Обсуждение', on_delete=models.CASCADE, null=True)
+	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
+	date_of_creation = models.DateField(auto_now_add=True, db_index=True, verbose_name='Создано')
+
+	def __str__(self):
+		return f'Ответ {self.creator.username} - {self.text[:10 if len(self.text)>10 else -1]}....'
+
+	class Meta:
+		verbose_name='Комментарий'
+		verbose_name_plural = 'Комментарии'
+		ordering = ['-date_of_creation']

@@ -18,8 +18,10 @@ def index(request):
 
 	posts = Post.objects.all()        	
 	form_contact = FeedbackForm()                 
-	rnd_article = Article.objects.get(pk=random.randint(1, Article.objects.count()))
-
+	if Article.objects.count() > 2:
+		rnd_article = Article.objects.get_object_or_404(pk=random.randint(1, Article.objects.count()))
+	else: rnd_article = None            
+	
 	paginator = Paginator(posts, 3)
 	page_number = request.GET.get('page', default=1)
 	page = paginator.get_page(page_number)
@@ -42,8 +44,11 @@ def by_tag(request, id_tag):
 	if request.method == 'POST':
 		contacts(request=request)
 	posts = Tag.objects.filter(pk=id_tag).first().posts.all() 
-	form_contact = FeedbackForm()                 
-	rnd_article = Article.objects.get(pk=random.randint(1, Article.objects.count()))
+	form_contact = FeedbackForm()     
+	if Article.objects.count() > 2:
+		rnd_article = Article.objects.get_object_or_404(pk=random.randint(1, Article.objects.count()))
+	else: rnd_article = None            
+	
 
 	paginator = Paginator(posts, 3)
 	page_number = request.GET.get('page', default=1)
