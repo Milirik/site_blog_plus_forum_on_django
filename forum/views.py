@@ -87,3 +87,14 @@ def user_activate(request, sign):
 def profile(request):
 	return render(request, 'forum/profile.html')
 	
+
+# Discussions
+
+def detail(request, pk):
+	discuss = get_object_or_404(Discussion, pk=pk)
+	
+	return render(
+		request, 
+		'forum/detail.html', 
+		context = {'discuss': discuss},
+		)

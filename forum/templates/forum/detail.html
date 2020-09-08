@@ -1,0 +1,45 @@
+{% extends 'layout/basic_forum.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+	Обсуждение - {{ discuss.pk }}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+	<div class="row no-gutters">
+		<div class="col-md-4">
+			<img class="profile_photo" src="{{ discuss.creator.image.url }}">
+		</div>
+		<div class="col-md-8">
+			<div class="card-body">
+				<h5 class="card-title">{{ discuss.creator.username }}</h5>
+				<p class="card-text">{{ discuss.text }}</p>
+				<p class="card-text"><small class="text-muted">{{ discuss.date_of_creation }}</small></p>
+				<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
+				<p><a href="#" style="font-size: 20px;" class="url_default">Ответить</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% for answer in discuss.answer_set.all %}
+<div class="card mb-3" style="max-width: 540px;">
+	<div class="row no-gutters">
+		<div class="col-md-4">
+			<img class="profile_photo" src="{{ answer.creator.image.url }}">
+		</div>
+		<div class="col-md-8">
+			<div class="card-body">
+				<h5 class="card-title">{{ answer.creator.username }}</h5>
+				<p class="card-text">{{ answer.text }}</p>
+				<p class="card-text"><small class="text-muted">{{ answer.date_of_creation }}</small></p>
+				<p><a href="#" style="font-size: 20px;" class="url_default">Ответить</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+
+{% endblock %}

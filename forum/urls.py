@@ -6,6 +6,8 @@ from .views import *
 app_name = 'forum'
 
 urlpatterns = [
+	path('discuss/<int:pk>/', detail, name = "detail_discuss_name"),
+
 	path('register/activate/<str:sign>/', user_activate, name='register_activate_name'),
 	path('register/done/', RegisterUserDoneView.as_view(), name='register_done_name'),
 	path('register/', RegisterUserView.as_view(), name='register_name'),

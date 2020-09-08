@@ -10,7 +10,7 @@
 		<h2><b>{{ category.name }}</b></h2>
 		{% for discuss in category.discussion_set.all %}
 		<hr>	
-		<div class="card mb-3" style="max-width: 540px;">
+		<div class="card mb-3">
 			<div class="row no-gutters">
 				<div class="col-md-4">
 					<img class="profile_photo" src="{{ discuss.creator.image.url }}">
@@ -21,7 +21,7 @@
 						<p class="card-text">{{ discuss.text }}</p>
 						<p class="card-text"><small class="text-muted">{{ discuss.date_of_creation }}</small></p>
 						<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
-						<p><a href="#" style="font-size: 20px;" class="url_default">Ответить</a></p>
+						<p><a href="{% url "forum:detail_discuss_name" pk=discuss.pk %}" style="font-size: 20px;" class="url_default">Обсудить</a></p>
 					</div>
 				</div>
 			</div>
