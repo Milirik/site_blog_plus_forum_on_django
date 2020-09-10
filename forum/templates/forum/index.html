@@ -20,7 +20,11 @@
 						<h5 class="card-title">{{ discuss.creator.username }}</h5>
 						<p class="card-text">{{ discuss.text }}</p>
 						<p class="card-text"><small class="text-muted">{{ discuss.date_of_creation }}</small></p>
+
 						<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
+
+						<p class="card-text"><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></p>
+
 						<p><a href="{% url "forum:detail_discuss_name" pk=discuss.pk %}" style="font-size: 20px;" class="url_default">Обсудить</a></p>
 					</div>
 				</div>

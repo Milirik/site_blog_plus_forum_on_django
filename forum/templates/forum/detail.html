@@ -30,6 +30,7 @@
 		<div class="col-md-4">
 			<img class="profile_photo" src="{{ answer.creator.image.url }}">
 		</div>
+		
 		<div class="col-md-8">
 			<div class="card-body">
 				<h5 class="card-title">{{ answer.creator.username }}</h5>
@@ -41,5 +42,21 @@
 	</div>
 </div>
 {% endfor %}
-
+<div>
+	<div class="row">
+		<div class="col-md-4">
+			<img class="profile_photo" src="{{ user.image.url }}">
+			<p>{{ user.username }}</p>
+		</div>
+		<div class="col-md-8">
+			<form method="post">
+				{% csrf_token %}
+				{% bootstrap_form answer_form layout='horizontal' show_label=False %}
+				<input type="hidden" name="next" value="{{ next }}">
+				{% buttons submit='Ответить' %}{% endbuttons %}
+			<!-- 	<a href="" class="btn btn-outline-primary">Ответить</a> -->
+			</form>	
+		</div>
+	</div>
+</div>
 {% endblock %}

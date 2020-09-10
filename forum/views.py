@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import View
 from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.base import TemplateView
 from django.shortcuts import get_object_or_404
@@ -13,17 +14,33 @@ from django.shortcuts import get_object_or_404
 from django.core.signing import BadSignature
 
 from .models import Discussion, Category, AdvUser
-from .forms import ChangeUserInfoForm, RegisterUserForm
+from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm
 from .utilities import signer
 
 # Pages
 def index(request):
 	categories = Category.objects.all()
-
 	return render(request, 'forum/index.html', 
 		context={
 		'categories':categories,
 		})
+
+
+# Discussions
+def detail(request, pk):
+	if request.method=="POST":
+		pass
+	else:
+		discuss = get_object_or_404(Discussion, pk=pk)
+		answer_form = AnswerForm()
+		return render(
+			request, 
+			'forum/detail.html', 
+			context = {
+			'discuss': discuss,
+			'answer_form':answer_form,
+			},)
+
 
 # User
 class ForumLoginView(LoginView):
@@ -88,13 +105,3 @@ def profile(request):
 	return render(request, 'forum/profile.html')
 	
 
-# Discussions
-
-def detail(request, pk):
-	discuss = get_object_or_404(Discussion, pk=pk)
-	
-	return render(
-		request, 
-		'forum/detail.html', 
-		context = {'discuss': discuss},
-		)

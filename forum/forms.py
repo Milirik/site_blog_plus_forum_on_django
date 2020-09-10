@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
-from .models import AdvUser, user_registrated
+from .models import AdvUser, user_registrated, Answer
 
 class ChangeUserInfoForm(forms.ModelForm):
 	email = forms.EmailField(required=True, label='Адрес электронный почты')
@@ -44,3 +44,10 @@ class RegisterUserForm(forms.ModelForm):
 	class Meta:
 		model = AdvUser
 		fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages')
+
+
+class AnswerForm(forms.ModelForm):
+	class Meta:
+		model = Answer
+		fields = ['text']
+
