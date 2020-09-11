@@ -13,12 +13,14 @@ urlpatterns = [
 	path('register/', RegisterUserView.as_view(), name='register_name'),
 
 	path('profile/change/', ChangeUserInfoView.as_view(), name='profile_change_name'),
+	path('profile/delete/', DeleteUserView.as_view(), name='profile_delete_name'),
 	path('profile/', profile, name='profile_name'),
 
 	path('password/change/', ForumPasswordChangeView.as_view(), name='password_change_name'),
 	path('logout/', ForumLogoutView.as_view(), name='logout_name'),
 	path('login/', ForumLoginView.as_view(), name='login_name'),
 	
+
     path('', index, name='index_name'),
 
 ] 
