@@ -33,16 +33,37 @@
 				</div>
 				<div class="col-lg-4">
 					{% if user.is_authenticated %}
+						<h2>
+							<b>Вы вошли как:</b>
+							<a href="{% url 'forum:profile_name' %}" class="url_default">{{ user.username }}</a>
+						</h2>
+						<hr>
 						{% if user.image %}
 							<img class="profile_photo" src="{{ user.image.url }}">
 						{% endif %}
 						<p style="text-align: center">
-							<a href="{% url 'forum:profile_name' %}" class="url_default">{{ user.username }}</a>
+							
+							<b>{{ user.last_name }} {{ user.first_name }}</b>
 							<a style="font-size: 20px;margin: 30px 0 30px 20px; display:inline-block;" class="url_default" href="{% url 'forum:logout_name' %}">(Выйти)</a>
 						</p>
 						<hr>
 					{% endif %}
-					
+						<h2><b>Самое популярное обсуждение:</b></h2>
+						<hr>
+						<img class="profile_photo" src="{{ popular_discuss.creator.image.url }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ popular_discuss.creator.username }}</h5>
+							<p class="card-text">{{ popular_discuss.text }}</p>
+							<p class="card-text"><small class="text-muted">{{ popular_discuss.date_of_creation }}</small></p>
+
+							<p class="card-text"><small class="text-muted">Рейтинг: {{ popular_discuss.rating }}</small></p>
+
+							<p class="card-text"><small class="text-muted">Ответов: {{ popular_discuss.answer_set.all.count }}</small></p>
+
+							<p><a href="{% url "forum:detail_discuss_name" pk=popular_discuss.pk %}" style="font-size: 20px;" class="url_default">Обсудить</a></p>
+						</div>
+						<hr>
+					</div>
 					
 				</div>
 			</div>		
