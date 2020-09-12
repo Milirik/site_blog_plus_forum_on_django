@@ -1,0 +1,16 @@
+{% extends "layout/basic_forum.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+	Создание обсуждения - {{ user.username }}
+{% endblock title %}
+
+{% block content %}
+	<h2><b>Создание обсуждения</b></h2>
+	<form method="post">
+		{% csrf_token %}
+		{% bootstrap_form form layput='horizontal' %}
+		{% buttons submit='Создать' %}{% endbuttons %}
+	</form>
+{% endblock content %}

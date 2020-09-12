@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.urls import reverse_lazy
 
@@ -19,7 +19,7 @@ from django.shortcuts import get_object_or_404
 from django.core.signing import BadSignature
 
 from .models import Discussion, Category, AdvUser
-from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm
+from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm, DiscussForm
 from .utilities import signer
 
 # Pages
@@ -46,7 +46,32 @@ def detail(request, pk):
 			'answer_form':answer_form,
 			},)
 
+@login_required
+def profile_add_discuss(request):
+	if request.method=="POST":
+		form = DiscussForm(request.POST)
+		if form.is_valid():
+			discuss = form.save()
+			messages.add_message(request, messages.SUCCESS, 'Обсуждение успешно создано')
+			return redirect('forum:index_name')
+	else:
+		form = DiscussForm(initial={'creator':request.user.pk})
+	context = {
+	'form': form,
+	}
+	return render(request, 'forum/profile_discuss_add.html', context)
 
+
+@login_required
+def profile_delete_discuss(request, pk):
+	discuss = get_object_or_404(Discussion, pk=pk)
+	if request.method=="POST":
+		discuss.delete()
+		messages.add_message(request, messages.SUCCESS, 'Объявление удалено')
+		return redirect('forum:profile_name')
+	else:
+		context = {'discuss': discuss}
+		return render(request, 'forum/profile_delete_discuss.html', context)
 # User
 class ForumLoginView(LoginView):
 	template_name = 'forum/login.html'

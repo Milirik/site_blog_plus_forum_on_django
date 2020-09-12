@@ -1,0 +1,31 @@
+{% extends "layout/basic_forum.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+	Удаление обсуждения - {{ user.username }}
+{% endblock title %}
+
+{% block content %}
+	<h2><b>Удалить это обсуждение?</b></h2>
+	<div class="row no-gutters">
+			<div class="col-md-4">
+				<img class="profile_photo" src="{{ discuss.creator.image.url }}">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ discuss.creator.username }} <small style="font-size: 14px; font-weight: 200;" class="text-muted">{{ discuss.date_of_creation }}</small></h5>
+					<p class="card-text">{{ discuss.text }}</p>
+
+					<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
+				</div>
+			</div>
+		</div>
+	<p>
+		<form method="post">
+		{% csrf_token %}
+		
+		{% buttons submit='Удалить' %}{% endbuttons %}
+		</form>
+	</p>
+{% endblock content %}

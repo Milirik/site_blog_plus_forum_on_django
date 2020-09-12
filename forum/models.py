@@ -53,6 +53,7 @@ class Discussion(models.Model):
 	class Meta:
 		verbose_name = 'Обсуждение'
 		verbose_name_plural = 'Обсуждения'
+		ordering = ['-date_of_creation']
 
 
 class Answer(models.Model):
