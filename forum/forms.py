@@ -49,7 +49,12 @@ class RegisterUserForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
 	class Meta:
 		model = Answer
-		fields = ['text']
+		fields = '__all__'
+		widgets = {
+		'creator': forms.HiddenInput,
+		'discussion': forms.HiddenInput,
+		}
+
 
 class DiscussForm(forms.ModelForm):
 	class Meta:

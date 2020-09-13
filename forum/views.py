@@ -33,18 +33,21 @@ def index(request):
 
 # Discussions
 def detail(request, pk):
-	if request.method=="POST":
-		pass
-	else:
-		discuss = get_object_or_404(Discussion, pk=pk)
-		answer_form = AnswerForm()
-		return render(
-			request, 
-			'forum/detail.html', 
-			context = {
-			'discuss': discuss,
-			'answer_form':answer_form,
-			},)
+	discuss = get_object_or_404(Discussion, pk=pk)
+
+	if request.method == "POST": # For answers
+		form = AnswerForm(request.POST)
+		if form.is_valid():
+			tmp = form.save()
+			messages.add_message(request, messages.SUCCESS, 'Комментарий создан')
+
+	form = AnswerForm(initial={'creator':request.user.pk, 'discussion': discuss.pk})
+
+	return render(
+		request, 
+		'forum/detail.html', 
+		context = {'discuss': discuss,'form': form},
+	)
 
 @login_required
 def profile_add_discuss(request):
@@ -72,6 +75,13 @@ def profile_delete_discuss(request, pk):
 	else:
 		context = {'discuss': discuss}
 		return render(request, 'forum/profile_delete_discuss.html', context)
+
+
+# Answers
+def add_answer(request):
+	pass
+
+
 # User
 class ForumLoginView(LoginView):
 	template_name = 'forum/login.html'

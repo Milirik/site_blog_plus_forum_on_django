@@ -17,7 +17,14 @@
 		</div>
 		<div class="col-lg-6">
 			<p>Имя профиля: {{user.username}}</p>
-			<p>Ваше имя: {{ user.first_name }} {{ user.last_name }}</p>
+			<p>Ваше имя:
+			{% if user.first_name and user.last_name %}
+				{{ user.first_name }} {{ user.last_name }}
+			{% else %}
+				<b style="color:red;">Не указано</b>
+			{% endif %} 
+			
+			</p>
 			<p>Email: {{ user.email }}</p>
 			<p>Дата регистрации: {{ user.date_joined }}</p>
 			<div class="btn-group">

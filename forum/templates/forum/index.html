@@ -7,6 +7,7 @@
 {% block content %}
 	{% for category in categories %}
 	<div>
+		<p><a href="{% url 'forum:profile_add_discuss_name' %}">Создать обсуждение</a></p>
 		<h2><b>{{ category.name }}</b></h2>
 		{% for discuss in category.discussion_set.all %}
 		<hr>	
