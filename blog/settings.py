@@ -13,23 +13,36 @@ SECRET_KEY = '!6uiff)h6=9a&nipqp)$imin295q4s!z-*q@x4yijd^hxsv3rx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "kirill.miheev.lirik@gmail.com"
-EMAIL_HOST_PASSWORD = "19haker20wertynastya"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+AUTH_USER_MODEL = 'forum.AdvUser'
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7596901'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'Zpt487N6OHe3oWsJvd2m' 
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 CAPTCHA_IMAGE_SIZE = (200, 70)
 CAPTCHA_FONT_SIZE = (28)
 
-AUTH_USER_MODEL = 'forum.AdvUser'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    )
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,6 +59,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'captcha',
     'ckeditor',
+    
 ]
 
 MIDDLEWARE = [
@@ -71,6 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
                 'forum.middlewares.forum_context_processor',
             ],
         },
