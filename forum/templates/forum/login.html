@@ -19,5 +19,7 @@
 	{% endif %} 
 	<p><a href="{% url 'forum:register_name' %}">Регистрация</a></p>
 	<p><a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через Вконтакте</a></p>
+	<p><a href="{% url 'forum:password_reset_name' %}">Забыли пароль?</a></p>
+
 	
 {% endblock content %}

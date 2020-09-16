@@ -18,6 +18,10 @@ urlpatterns = [
 	path('profile/delete/', DeleteUserView.as_view(), name='profile_delete_name'),
 	path('profile/', profile, name='profile_name'),
 
+	path('password/reset/', PasswordResetView.as_view(), name='password_reset_name'),
+	path('password/reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'), # Использую не переопределенный класс
+	path('password/reset/<uidb64>/<token>/', UserPasswordResetConfirmView.as_view(), name='password_reset_confirm_name'),
+
 	path('password/change/', ForumPasswordChangeView.as_view(), name='password_change_name'),
 	path('logout/', ForumLogoutView.as_view(), name='logout_name'),
 	path('login/', ForumLoginView.as_view(), name='login_name'),
