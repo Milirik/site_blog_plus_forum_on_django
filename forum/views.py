@@ -152,11 +152,12 @@ class UserPasswordResetView(SuccessMessageMixin, PasswordResetView):
 	success_url = reverse_lazy('forum:password_reset_done_name')
 	success_message = 'Письмо для восстановления пароля успешно отправлено на почту'
 
-
+class UserPasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
+	template_name = "forum/password_reset_done.html"
 
 class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
 	template_name = 'forum/resetconfirm_password.html'
-	post_reset_login = True
+	# post_reset_login = True
 	success_url = reverse_lazy('forum:index_name')
 	success_message = 'Пароль успешно изменен'
 
