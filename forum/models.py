@@ -60,7 +60,7 @@ class Answer(models.Model):
 	text = models.TextField(max_length=200, db_index=True, verbose_name='Текст ответа')
 	discussion = models.ForeignKey(Discussion, verbose_name='Обсуждение', on_delete=models.CASCADE, null=True)
 	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
-	date_of_creation = models.DateField(auto_now_add=True, db_index=True, verbose_name='Создано')
+	date_of_creation = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Создано')
 
 	def __str__(self):
 		return f'Ответ {self.creator.username} - {self.text[:10 if len(self.text)>10 else -1]}....'
@@ -68,4 +68,18 @@ class Answer(models.Model):
 	class Meta:
 		verbose_name='Комментарий'
 		verbose_name_plural = 'Комментарии'
-		ordering = ['-date_of_creation']
+		ordering = ['date_of_creation']
+
+class SubAnswer(models.Model):
+	text = models.TextField(max_length=200, db_index=True, verbose_name='')
+	answer = models.ForeignKey(Answer, verbose_name='Комментарий', on_delete=models.CASCADE, null=True)
+	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
+	date_of_creation = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Создано')
+
+	def __str__(self):
+		return f'Ответ на комментарий {self.creator.username} - {self.text[:10 if len(self.text)>10 else -1]}....'
+
+	class Meta:
+		verbose_name='Ответ на комментарий'
+		verbose_name_plural = 'Ответы на комментарии'
+		ordering = ['date_of_creation']

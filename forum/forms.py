@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
-from .models import AdvUser, user_registrated, Answer, Discussion
+from .models import AdvUser, user_registrated, Answer, Discussion, SubAnswer
 
 class ChangeUserInfoForm(forms.ModelForm):
 	email = forms.EmailField(required=True, label='Адрес электронный почты')
@@ -53,6 +53,15 @@ class AnswerForm(forms.ModelForm):
 		widgets = {
 		'creator': forms.HiddenInput,
 		'discussion': forms.HiddenInput,
+		}
+
+class SubAnswerForm(forms.ModelForm):
+	class Meta:
+		model = SubAnswer
+		fields = '__all__'
+		widgets = {
+		'creator': forms.HiddenInput,
+		'answer': forms.HiddenInput,
 		}
 
 

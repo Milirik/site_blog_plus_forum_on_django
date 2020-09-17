@@ -1,6 +1,6 @@
 from django.contrib import admin
 import datetime
-from .models import Discussion, Category, AdvUser, Answer
+from .models import Discussion, Category, AdvUser, Answer, SubAnswer
 from .utilities import send_activation_notification
 
 
@@ -58,3 +58,4 @@ admin.site.register(AdvUser, AdvUserAdmin)
 admin.site.register(Category)
 admin.site.register(Discussion)
 admin.site.register(Answer)
+admin.site.register(SubAnswer)

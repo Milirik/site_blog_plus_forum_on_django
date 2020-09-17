@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block content %}
+<h2><b>Обсуждение</b></h2>
+<hr>
 <div class="card mb-3">
 	<div class="row no-gutters">
 		<div class="col-md-4">
@@ -18,12 +20,12 @@
 				<p class="card-text">{{ discuss.text }}</p>
 				<p class="card-text"><small class="text-muted">{{ discuss.date_of_creation }}</small></p>
 				<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
-				<p><a href="#" style="font-size: 20px;" class="url_default">Ответить</a></p>
 			</div>
 		</div>
 	</div>
 </div>
-
+<h2><b>Комментарии</b></h2>
+<hr>
 {% for answer in discuss.answer_set.all %}
 <div class="card mb-3" style="max-width: 540px;">
 	<div class="row no-gutters">
@@ -36,11 +38,56 @@
 				<h5 class="card-title">{{ answer.creator.username }}</h5>
 				<p class="card-text">{{ answer.text }}</p>
 				<p class="card-text"><small class="text-muted">{{ answer.date_of_creation }}</small></p>
-				<p><a href="#" style="font-size: 20px;" class="url_default">Ответить</a></p>
+
+
+				<div class="accordion" id="accordionExample">
+					<h3 class="mr-2" style="display:inline-block">
+						<a style="font-size: 20px;" class="url_default" type="button" data-toggle="collapse" data-target="#collapse{{ answer.pk }}" aria-expanded="true" aria-controls="collapse{{ answer.pk }}">
+							Ответить
+						</a>
+					</h3>
+				</div>
+
+		
 			</div>
 		</div>
 	</div>
 </div>
+{% for sub_answer in answer.subanswer_set.all %}
+	<div class="row no-gutters">
+		<div class="col-md-1">
+			<img class="profile_photo" src="{{ sub_answer.creator.image.url }}">
+		</div>
+		<div class="col-md-11">
+			<div class="card-body">
+				<h5 class="card-title">{{ sub_answer.creator.username }}</h5>
+				<p class="card-text">{{ sub_answer.text }}</p>
+				<p class="card-text"><small class="text-muted">{{ sub_answer.date_of_creation }}</small></p>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+
+<div id="collapse{{ answer.pk }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+	<div class="row">
+		<div class="col-md-1">
+			<img class="profile_photo" src="{{ user.image.url }}">
+			<p>{{ user.username }}</p>
+		</div>
+		<div class="col-md-11">
+			<form method="post">
+				{% csrf_token %}
+				{% bootstrap_form sub_answer_form layout='horizontal' show_label=False %}
+				<input type="hidden" name="form_" value="subanswer">
+				<input type="hidden" name="answer" value={{ answer.pk }}>
+				{% buttons submit='Ответить' %}{% endbuttons %}
+			</form>	
+		</div>
+	</div>	
+</div>
+
+
 {% endfor %}
 {% if user.is_authenticated %}
 	<div>
@@ -53,8 +100,8 @@
 				<form method="post">
 					{% csrf_token %}
 					{% bootstrap_form form layout='horizontal' show_label=False %}
-					<input type="hidden" name="next" value="{{ next }}">
-					{% buttons submit='Ответить' %}{% endbuttons %}
+					<input type="hidden" name="form_" value="answer">
+					{% buttons submit='Добавить комментарий' %}{% endbuttons %}
 				<!-- 	<a href="" class="btn btn-outline-primary">Ответить</a> -->
 				</form>	
 			</div>

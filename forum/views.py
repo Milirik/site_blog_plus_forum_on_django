@@ -19,7 +19,7 @@ from django.shortcuts import get_object_or_404
 from django.core.signing import BadSignature
 
 from .models import Discussion, Category, AdvUser
-from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm, DiscussForm
+from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm, DiscussForm, SubAnswerForm
 from .utilities import signer
 
 # Pages
@@ -32,21 +32,35 @@ def index(request):
 
 
 # Discussions
-def detail(request, pk):
+def detail(request, pk): # Also for new answers
 	discuss = get_object_or_404(Discussion, pk=pk)
 
-	if request.method == "POST": # For answers
-		form = AnswerForm(request.POST)
-		if form.is_valid():
-			tmp = form.save()
-			messages.add_message(request, messages.SUCCESS, 'Комментарий создан')
+	sub_answer_form = SubAnswerForm()
+	if request.method == "POST": 
+
+		if request.POST.get("form_") == "subanswer":
+			sub_answer_form = SubAnswerForm(request.POST)
+			if sub_answer_form.is_valid():
+				tmp = sub_answer_form.save()
+				messages.add_message(request, messages.SUCCESS, 'Ответ создан')
+
+		elif request.POST.get("form_") == "answer":
+			form = AnswerForm(request.POST)
+			if form.is_valid():
+				tmp = form.save()
+				messages.add_message(request, messages.SUCCESS, 'Комментарий создан')
 
 	form = AnswerForm(initial={'creator':request.user.pk, 'discussion': discuss.pk})
+	sub_answer_form = SubAnswerForm(initial={'creator': request.user.pk})
 
 	return render(
 		request, 
 		'forum/detail.html', 
-		context = {'discuss': discuss,'form': form},
+		context = {
+		'discuss': discuss,
+		'form': form,
+		'sub_answer_form': sub_answer_form,
+		},
 	)
 
 @login_required
@@ -152,15 +166,16 @@ class UserPasswordResetView(SuccessMessageMixin, PasswordResetView):
 	success_url = reverse_lazy('forum:password_reset_done_name')
 	success_message = 'Письмо для восстановления пароля успешно отправлено на почту'
 
+
 class UserPasswordResetDoneView(SuccessMessageMixin, PasswordResetDoneView):
 	template_name = "forum/password_reset_done.html"
+
 
 class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
 	template_name = 'forum/resetconfirm_password.html'
 	# post_reset_login = True
 	success_url = reverse_lazy('forum:index_name')
 	success_message = 'Пароль успешно изменен'
-
 
 
 def user_activate(request, sign):
