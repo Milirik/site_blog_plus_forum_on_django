@@ -1,37 +1,43 @@
 {% extends "layout/basic_forum.html" %}
 
 {% block title %}
-	{{ block.super }}
+{{ block.super }}
 {% endblock title %}
 
 {% block content %}
-	{% for category in categories %}
-	<div>
-		<p><a href="{% url 'forum:profile_add_discuss_name' %}">Создать обсуждение</a></p>
-		<h2><b>{{ category.name }}</b></h2>
-		{% for discuss in category.discussion_set.all %}
-		<hr>	
-		<div class="card mb-3">
-			<div class="row no-gutters">
-				<div class="col-md-4">
-					<img class="profile_photo" src="{{ discuss.creator.image.url }}">
+
+<p><a href="{% url 'forum:profile_add_discuss_name' %}">Создать обсуждение</a></p>
+{% for category in categories %}
+<div>
+	<h1><b>{{ category.name }}</b></h1>
+	<hr>
+	{% for discuss in category.discussion_set.all %}
+
+
+	<div class="row">
+		<div class="col-md-3">
+			<img class="profile_photo_mini" src="{{ discuss.creator.image.url }}">
+			<p style="text-align:center; margin-top:5px;"><b>{{ discuss.creator.username }}</b></p>
+			<p><i><small class="text-muted">Зарегестрирован: <br>{{ discuss.creator.date_joined|date:"d.m.Y" }}</small></i></p>
+			<p style="margin-top:-15px;"><i><small class="text-muted">Всего ответов: {{ discuss.creator.answer_set.count }}</small></i></p>
+		</div>
+		<div class="col-md-9">
+			<div class="card">
+				<div class="card-header" style="display: flex;justify-content: space-between;">
+					<i><small class="text-muted">Создано:{{ discuss.date_of_creation }}</small></i>
+					<i><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></i>
+					<i><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></i>
 				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">{{ discuss.creator.username }}</h5>
-						<p class="card-text">{{ discuss.text }}</p>
-						<p class="card-text"><small class="text-muted">{{ discuss.date_of_creation }}</small></p>
+				<div class="card-body">
 
-						<p class="card-text"><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></p>
-
-						<p class="card-text"><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></p>
-
-						<p><a href="{% url "forum:detail_discuss_name" pk=discuss.pk %}" style="font-size: 20px;" class="url_default">Обсудить</a></p>
-					</div>
+					<h4 class="card-text">{{ discuss.text }}</h4>
+					<a href="{% url "forum:detail_discuss_name" pk=discuss.pk %}" class="url_default">Перейти к обсуждению</a>
 				</div>
 			</div>
 		</div>
-		{% endfor %}
 	</div>
+	<hr>	
 	{% endfor %}
+</div>
+{% endfor %}
 {% endblock content %}

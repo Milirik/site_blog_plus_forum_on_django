@@ -27,17 +27,17 @@
 		<div class="container mt-5" >
 			<div class="main">
 				<div class="row">
-					<div class="col-lg-7">
+					<div class="col-lg-8">
 						{% bootstrap_messages %}
 						{% block content %}{% endblock content %}
 					</div>
-					<div class="col-lg-4 offset-md-1">
+					<div class="col-lg-3 offset-md-1">
 						<div class="sticky-top">
 							{% if user.is_authenticated %}
-							<h2>
+							<h3>
 								<b>Вы вошли как:</b>
 								<a href="{% url 'forum:profile_name' %}" class="url_default">{{ user.username }}</a>
-							</h2>
+							</h3>
 							<hr>
 							{% if user.image %}
 							<img class="profile_photo" src="{{ user.image.url }}">
@@ -50,9 +50,9 @@
 							<hr>
 							{% endif %}
 
-							<h2><b>Самое популярное обсуждение:</b></h2>
+							<h3><b>Самое популярное обсуждение:</b></h3>
 							<hr>
-							<img class="profile_photo" src="{{ popular_discuss.creator.image.url }}">
+							<img class="profile_photo_mini" src="{{ popular_discuss.creator.image.url }}">
 							<div class="card-body">
 								<h5 class="card-title">{{ popular_discuss.creator.username }}</h5>
 								<p class="card-text">{{ popular_discuss.text }}</p>
