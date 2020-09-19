@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<p><a href="{% url 'forum:profile_add_discuss_name' %}">Создать обсуждение</a></p>
+<p3><a class="url_default" href="{% url 'forum:profile_add_discuss_name' %}">Создать обсуждение</a></p>
 {% for category in categories %}
 <div>
 	<h1><b>{{ category.name }}</b></h1>

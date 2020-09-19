@@ -90,12 +90,6 @@ def profile_delete_discuss(request, pk):
 		context = {'discuss': discuss}
 		return render(request, 'forum/profile_delete_discuss.html', context)
 
-
-# Answers
-def add_answer(request):
-	pass
-
-
 # User
 class ForumLoginView(LoginView):
 	template_name = 'forum/login.html'
