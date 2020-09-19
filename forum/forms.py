@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
+from captcha.fields import CaptchaField
+
+
 from .models import AdvUser, user_registrated, Answer, Discussion, SubAnswer
 
 class ChangeUserInfoForm(forms.ModelForm):
@@ -47,6 +50,9 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class AnswerForm(forms.ModelForm):
+	captcha = CaptchaField(label='Введите текст с картинки',
+							error_messages={'invalid': 'Wrong captcha'})
+
 	class Meta:
 		model = Answer
 		fields = '__all__'
@@ -56,6 +62,9 @@ class AnswerForm(forms.ModelForm):
 		}
 
 class SubAnswerForm(forms.ModelForm):
+	captcha = CaptchaField(label='Введите текст с картинки',
+							error_messages={'invalid': 'Wrong captcha'})
+
 	class Meta:
 		model = SubAnswer
 		fields = '__all__'
@@ -65,7 +74,10 @@ class SubAnswerForm(forms.ModelForm):
 		}
 
 
-class DiscussForm(forms.ModelForm):
+class DiscussForm(forms.ModelForm):	
+	captcha = CaptchaField(label='Введите текст с картинки',
+							error_messages={'invalid': 'Wrong captcha'})
+
 	class Meta:
 		model = Discussion
 		fields = '__all__'

@@ -1,5 +1,7 @@
 {% extends "layout/basic_forum.html" %}
 
+{% load static %}
+
 {% block title %}
 {{ block.super }}
 {% endblock title %}
@@ -12,8 +14,6 @@
 	<h1><b>{{ category.name }}</b></h1>
 	<hr>
 	{% for discuss in category.discussion_set.all %}
-
-
 	<div class="row">
 		<div class="col-md-3">
 			<img class="profile_photo_mini" src="{{ discuss.creator.image.url }}">
@@ -27,6 +27,10 @@
 					<i><small class="text-muted">Создано:{{ discuss.date_of_creation }}</small></i>
 					<i><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></i>
 					<i><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></i>
+
+					<a href=""><img title="Добавляет +1 к рейтингу" class='plus' src="{% static 'img/plus.png' %}"></a>
+
+
 				</div>
 				<div class="card-body">
 

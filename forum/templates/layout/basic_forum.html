@@ -44,13 +44,13 @@
 								<p>Имя: {{ user.last_name }} {{ user.first_name }}</p>
 								<p>Дата регистрации: {{ user.date_joined }}</p>
 								<p>Количество сообщений: {{ user.answer_set.count }}</p>
-								<p>Ваш общий рейтинг: {{ user_rating }}</p>
+								<p>Ваш рейтинг: {{ user_rating }}</p>
 								
 							</p>
 							<hr>
 							{% endif %}
 
-							<h5><b>Самое популярное обсуждение:</b></h5>
+							<h5 style="text-align:center;"><b>Самое популярное обсуждение:</b></h5>
 							<hr>
 							<div style="display: flex;">
 								<p class="mr-2"><img class="profile_photo_mini" src="{{ popular_discuss.creator.image.url }}"></p>
@@ -76,6 +76,33 @@
 							</div>
 							
 							<hr>
+							<div>
+								{% if third_place %}
+
+									<h5 style="text-align:center;"><b>Топ пользователей по рейтингу</b></h5>
+									<p>
+										<div style="display:flex;">
+											<img class="profile_photo_mini_mini" src="{{ first_place.image.url }}">
+										{{ first_place }} - {{ first_place_rating }}
+										</div>
+										
+									</p>
+
+									<p>
+										<div style="display:flex;">
+											<img class="profile_photo_mini_mini" src="{{ second_place.image.url }}">
+											{{ second_place }} - {{ second_place_rating }}
+										</div>
+									</p>
+
+									<p>
+										<div style="display:flex; justify-content: start">
+											<img class="profile_photo_mini_mini" src="{{ third_place.image.url }}">
+											{{ third_place }} - {{ third_place_rating }}
+										</div>
+									</p>
+								{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>

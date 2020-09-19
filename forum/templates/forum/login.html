@@ -1,25 +1,39 @@
 {% extends "layout/basic_forum.html" %}
 
 {% load bootstrap4 %}
+{% load static %}
 
 {% block title %}
 	{{ block.super }}
 {% endblock title %}
 
 {% block content %}
-	{% if user.is_authenticated %}
-	 	<p>Вы уже выполнили вход</p>
-	{% else %}
-		<form method="post">
-			{% csrf_token %}
-			{% bootstrap_form form layout='horizontal' %}
-			<input type="hidden" name="next" value="{{ next }}">
-			{% buttons submit='Войти' %}{% endbuttons %}
-		</form>	
-	{% endif %} 
-	<p><a href="{% url 'forum:register_name' %}">Регистрация</a></p>
-	<p><a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через Вконтакте</a></p>
-	<p><a href="{% url 'forum:password_reset_name' %}">Забыли пароль?</a></p>
+	
+		{% if user.is_authenticated %}
+		 	<p>Вы уже выполнили вход</p>
+		{% else %}
+			<form method="post">
+				{% csrf_token %}
+				{% bootstrap_form form layout='horizontal' %}
+				<input type="hidden" name="next" value="{{ next }}">
+				<div style="display: flex; justify-content: space-between;">
+					<p><a class="url_default" href="{% url 'forum:register_name' %}">Регистрация</a></p>
+					<p><a class="url_default" href="{% url 'forum:password_reset_name' %}">Забыли пароль?</a></p>
+				</div>
+				<div style="display: flex; justify-content: start;">
+
+					{% bootstrap_button "Войти" button_type="submit" button_class="btn btn-outline-danger" %}
+
+					<div class="ml-3"><i><small>Войти через: </small></i><a href="{% url 'social:begin' 'vk-oauth2' %}"><img class='logo' src="{% static 'img/vk.png' %}"></a></div>
+				</div>
+			</form>	
+			
+		{% endif %} 
+		
+	
+	
+	
+
 
 	
 {% endblock content %}

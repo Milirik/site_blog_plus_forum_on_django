@@ -55,7 +55,7 @@
 				<h4 class="card-text">{{ answer.text }}</h4>
 				<div class="accordion" id="accordionExample">
 					<h3 class="mr-2" style="display:inline-block">
-						<a class="url_default" type="button" data-toggle="collapse" data-target="#collapse{{ answer.pk }}" aria-expanded="true" aria-controls="collapse{{ answer.pk }}">
+						<a style="color:#ff4a4a;" class="url_default" type="button" data-toggle="collapse" data-target="#collapse{{ answer.pk }}" aria-expanded="true" aria-controls="collapse{{ answer.pk }}">
 							Ответить на сообщение
 						</a>
 					</h3>
@@ -81,7 +81,7 @@
 				{% bootstrap_form sub_answer_form layout='horizontal' show_label=False %}
 				<input type="hidden" name="form_" value="subanswer">
 				<input type="hidden" name="answer" value={{ answer.pk }}>
-				{% buttons submit='Ответить' %}{% endbuttons %}
+				{% bootstrap_button "Ответить" button_type="submit" button_class="btn btn-outline-danger" %}
 			</form>	
 			
 		</div>
@@ -127,7 +127,8 @@
 					{% csrf_token %}
 					{% bootstrap_form form layout='horizontal' show_label=False %}
 					<input type="hidden" name="form_" value="answer">
-					{% buttons submit='Добавить комментарий' %}{% endbuttons %}
+
+					{% bootstrap_button "Добавить комментарий" button_type="submit" button_class="btn btn-outline-danger" %}
 				</form>	
 			</div>
 		</div>
