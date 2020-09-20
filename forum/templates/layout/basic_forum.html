@@ -80,27 +80,52 @@
 								{% if third_place %}
 
 									<h5 style="text-align:center;"><b>Топ пользователей по рейтингу</b></h5>
-									<p>
-										<div style="display:flex;">
+
+									<div class="row" >
+										<div class="col-md-3">
 											<img class="profile_photo_mini_mini" src="{{ first_place.image.url }}">
-										{{ first_place }} - {{ first_place_rating }}
+											<b>{{ first_place.username }}</b>
 										</div>
-										
-									</p>
+										<div class="col-md-9">
+											<div class="card" style="border: 3px solid yellow">
+												<div class="card-header" style="display: flex;justify-content: space-between;">
+													
+													<i><small class="text-muted"> Рейтинг: {{ first_place_rating }}</small></i>
+												</div>
+											</div>
+										</div>
+									</div>
 
-									<p>
-										<div style="display:flex;">
+									 <div class="row">
+										<div class="col-md-3">
 											<img class="profile_photo_mini_mini" src="{{ second_place.image.url }}">
-											{{ second_place }} - {{ second_place_rating }}
+											<b>{{ second_place.username }}</b>
 										</div>
-									</p>
+										<div class="col-md-9">
+											<div class="card" style="border: 3px solid gray">
+												<div class="card-header" style="display: flex;justify-content: space-between;">
+													
+													<i><small class="text-muted"> Рейтинг: {{ second_place_rating }}</small></i>
+												</div>
+											</div>
+										</div>
+									</div>
 
-									<p>
-										<div style="display:flex; justify-content: start">
+									<div class="row">
+										<div class="col-md-3">
 											<img class="profile_photo_mini_mini" src="{{ third_place.image.url }}">
-											{{ third_place }} - {{ third_place_rating }}
+											<b>{{ third_place.username }}</b>
 										</div>
-									</p>
+										<div class="col-md-9">
+											<div class="card" style="border: 3px solid brown">
+												<div class="card-header" style="display: flex;justify-content: space-between;">
+													
+													<i><small class="text-muted"> Рейтинг: {{ third_place_rating }}</small></i>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								{% endif %}
 							</div>
 						</div>

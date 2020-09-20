@@ -39,7 +39,7 @@ class NonactivatedFilter(admin.SimpleListFilter):
 			return queryset.filter(is_active=False, is_activated=False, date_joined__date__lt=d)
 
 class AdvUserAdmin(admin.ModelAdmin):
-	list_display = ('__str__', 'is_activated', 'date_joined')
+	list_display = ('__str__', 'email' ,'is_activated', 'date_joined')
 	search_fields = ('username', 'email', 'first_name', 'last_name')
 	list_filter = (NonactivatedFilter,)
 	fields = (('username', 'email'), 

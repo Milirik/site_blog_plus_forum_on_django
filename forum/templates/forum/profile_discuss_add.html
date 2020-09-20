@@ -12,5 +12,9 @@
 		{% csrf_token %}
 		{% bootstrap_form form layput='horizontal' %}
 		{% buttons submit='Создать' %}{% endbuttons %}
+
+		{% if captcha_form %}
+			{% bootstrap_field captcha_form.captcha placeholder=''%}
+		{% endif %}
 	</form>
 {% endblock content %}

@@ -75,7 +75,7 @@ class SubAnswer(models.Model):
 	answer = models.ForeignKey(Answer, verbose_name='Комментарий', on_delete=models.CASCADE, null=True)
 	creator = models.ForeignKey(AdvUser, verbose_name='Создатель', on_delete=models.CASCADE, null=True)
 	date_of_creation = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Создано')
-
+	
 	def __str__(self):
 		return f'Ответ на комментарий {self.creator.username} - {self.text[:10 if len(self.text)>10 else -1]}....'
 
