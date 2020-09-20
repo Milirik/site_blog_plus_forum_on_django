@@ -82,6 +82,12 @@
 				<input type="hidden" name="form_" value="subanswer">
 				<input type="hidden" name="answer" value={{ answer.pk }}>
 				{% bootstrap_button "Ответить" button_type="submit" button_class="btn btn-outline-danger" %}
+
+				{% if captcha_form %}
+					{% bootstrap_field captcha_form.captcha placeholder=''%}
+				{% endif %}
+				
+				
 			</form>	
 			
 		</div>
@@ -129,6 +135,11 @@
 					<input type="hidden" name="form_" value="answer">
 
 					{% bootstrap_button "Добавить комментарий" button_type="submit" button_class="btn btn-outline-danger" %}
+					
+					{% if captcha_form %}
+						{% bootstrap_field captcha_form.captcha placeholder=''%}
+					{% endif %}
+
 				</form>	
 			</div>
 		</div>

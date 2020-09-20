@@ -50,8 +50,6 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class AnswerForm(forms.ModelForm):
-	captcha = CaptchaField(label='Введите текст с картинки',
-							error_messages={'invalid': 'Wrong captcha'})
 
 	class Meta:
 		model = Answer
@@ -62,8 +60,6 @@ class AnswerForm(forms.ModelForm):
 		}
 
 class SubAnswerForm(forms.ModelForm):
-	captcha = CaptchaField(label='Введите текст с картинки',
-							error_messages={'invalid': 'Wrong captcha'})
 
 	class Meta:
 		model = SubAnswer
@@ -75,8 +71,6 @@ class SubAnswerForm(forms.ModelForm):
 
 
 class DiscussForm(forms.ModelForm):	
-	captcha = CaptchaField(label='Введите текст с картинки',
-							error_messages={'invalid': 'Wrong captcha'})
 
 	class Meta:
 		model = Discussion
@@ -85,3 +79,10 @@ class DiscussForm(forms.ModelForm):
 		'creator': forms.HiddenInput,
 		'rating': forms.HiddenInput,
 		 }
+
+
+class CaptchaForm(forms.Form): 
+	captcha = CaptchaField(label='Введите текст с картинки', error_messages={'invalid': 'Wrong captcha'})
+
+	class Meta:
+		pass

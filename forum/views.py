@@ -19,8 +19,10 @@ from django.shortcuts import get_object_or_404
 from django.core.signing import BadSignature
 
 from .models import Discussion, Category, AdvUser
-from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm, DiscussForm, SubAnswerForm
+from .forms import ChangeUserInfoForm, RegisterUserForm, AnswerForm, DiscussForm, SubAnswerForm, CaptchaForm
 from .utilities import signer
+
+from datetime import datetime
 
 # Pages
 def index(request):
@@ -35,34 +37,34 @@ def index(request):
 def detail(request, pk): # Also for new answers
 	discuss = get_object_or_404(Discussion, pk=pk)
 
-	sub_answer_form = SubAnswerForm()
+	
+	s = request.user.discussion_set.filter(date_of_creation__date=datetime.now().date()).count()	
+	d = request.user.subanswer_set.filter(date_of_creation__date=datetime.now().date()).count()
+	b = request.user.answer_set.filter(date_of_creation__date=datetime.now().date()).count()
+	
 	if request.method == "POST": 
-
 		if request.POST.get("form_") == "subanswer":
 			sub_answer_form = SubAnswerForm(request.POST)
 			if sub_answer_form.is_valid():
 				tmp = sub_answer_form.save()
 				messages.add_message(request, messages.SUCCESS, 'Ответ создан')
-
 		elif request.POST.get("form_") == "answer":
 			form = AnswerForm(request.POST)
 			if form.is_valid():
 				tmp = form.save()
 				messages.add_message(request, messages.SUCCESS, 'Комментарий создан')
 
+	captcha_form = CaptchaForm() if d + b + s >=3 else None
 	form = AnswerForm(initial={'creator':request.user.pk, 'discussion': discuss.pk})
 	sub_answer_form = SubAnswerForm(initial={'creator': request.user.pk})
-
-	return render(
-		request, 
-		'forum/detail.html', 
-		context = {
+	context = {
 		'discuss': discuss,
 		'form': form,
 		'sub_answer_form': sub_answer_form,
-		},
-	)
+		'captcha_form': captcha_form,
+		}
 
+	return render(request, 'forum/detail.html', context)
 @login_required
 def profile_add_discuss(request):
 	if request.method=="POST":
