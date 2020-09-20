@@ -26,10 +26,13 @@ from datetime import datetime
 
 
 def check_for_constraint(request):
-	s = request.user.discussion_set.filter(date_of_creation__date=datetime.now().date()).count()	
-	d = request.user.subanswer_set.filter(date_of_creation__date=datetime.now().date()).count()
-	b = request.user.answer_set.filter(date_of_creation__date=datetime.now().date()).count()
-	return CaptchaForm() if d + s + b >= 5 else None
+	if request.user.is_authenticated:
+		s = request.user.discussion_set.filter(date_of_creation__date=datetime.now().date()).count()	
+		d = request.user.subanswer_set.filter(date_of_creation__date=datetime.now().date()).count()
+		b = request.user.answer_set.filter(date_of_creation__date=datetime.now().date()).count()
+		return CaptchaForm() if d + s + b >= 5 else None
+	else:
+		return None
 
 # Pages
 def index(request):
