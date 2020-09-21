@@ -67,7 +67,10 @@
 									<div class="card-header" style="display: flex;justify-content: space-between;">
 										<i><small class="text-muted">Создано:{{ popular_discuss.date_of_creation }}</small></i>
 										<i><small class="text-muted">Ответов: {{ popular_discuss.answer_set.all.count }}</small></i>
-										<i><small class="text-muted">Рейтинг: {{ popular_discuss.rating }}</small></i>
+
+										{% count_likes popular_discuss.pk as likes_counter %}
+										<i><small class="text-muted">Рейтинг: {{ likes_counter }}</small></i>
+
 									</div>
 									<div class="card-body">
 

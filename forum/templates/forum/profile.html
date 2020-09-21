@@ -1,5 +1,8 @@
 {% extends "layout/basic_forum.html" %}
 
+{% load likes_forum %}
+
+
 {% block title %}
 	Профиль пользователя	
 {% endblock title %}
@@ -54,7 +57,10 @@
 				<div class="card-header" style="display: flex;justify-content: space-between;">
 					<i><small class="text-muted">Создано:{{ discuss.date_of_creation }}</small></i>
 					<i><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></i>
-					<i><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></i>
+					
+					{% count_likes discuss.pk as likes_counter %}
+					<i><small class="text-muted">Рейтинг: {{ likes_counter }}</small></i>
+
 
 				</div>
 				<div class="card-body">

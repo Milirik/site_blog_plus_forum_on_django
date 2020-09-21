@@ -234,7 +234,6 @@ class AddLikeView(View):
 		except Exception as e:
 			forum_likes = ForumLikes(discussion=discussion_inst, liked_by=user_inst, like=True)
 			forum_likes.save()
-
 		return redirect('forum:index_name')
 
 class RemoveLikeView(View):
@@ -243,7 +242,4 @@ class RemoveLikeView(View):
 		print('hey', forum_likes_id)
 		forum_likes_inst = ForumLikes.objects.get(pk=forum_likes_id)
 		forum_likes_inst.delete()
-		# forum_likes_inst = ForumLikes.objects.get(id=forum_likes_id)
-		# forum_likes_inst.delete()
-
 		return redirect('forum:index_name')
