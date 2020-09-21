@@ -223,6 +223,9 @@ def profile(request):
 # Likes
 class AddLikeView(View):
 	def post(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect('forum:login_name')
+
 		discussion_id = int(request.POST.get('discussion_id'))
 		user_id = int(request.POST.get('user_id'))
 
