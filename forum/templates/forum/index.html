@@ -1,6 +1,7 @@
 {% extends "layout/basic_forum.html" %}
 
 {% load static %}
+{% load likes_forum %}
 
 {% block title %}
 {{ block.super }}
@@ -26,9 +27,47 @@
 				<div class="card-header" style="display: flex;justify-content: space-between;">
 					<i><small class="text-muted">Создано:{{ discuss.date_of_creation }}</small></i>
 					<i><small class="text-muted">Ответов: {{ discuss.answer_set.all.count }}</small></i>
-					<i><small class="text-muted">Рейтинг: {{ discuss.rating }}</small></i>
+					{% count_likes discuss.pk as likes_counter %}
 
-					<a href=""><img title="Добавляет +1 к рейтингу" class='plus' src="{% static 'img/plus.png' %}"></a>
+					<i><small class="text-muted">Рейтинг: {{ likes_counter }}</small></i>
+					
+					<!--      Likes        -->
+					{% is_liked discuss.pk as is_liked_bool %}
+					
+
+					{% if is_liked_bool %}
+						{%  forum_likes_id	discuss.pk as forum_likes_id %}
+					{% endif %}
+
+					<form 
+					{% if not is_liked_bool %} action="{% url 'forum:add_like_name' %}"
+					{% else %}
+					action="{% url 'forum:remove_like_name' %}"
+					{% endif %}
+					method="POST">
+
+						{% csrf_token %}
+						<input type="hidden" name="discussion_id" value="{{ discuss.pk }}">
+						<input type="hidden" name="user_id" value="{% if user.is_authenticated %}{{ request.user.id }}{% else %}None{% endif %}">
+
+						{% if is_liked_bool %}
+							<input type="hidden" name="forum_likes_id" value="{{ forum_likes_id }}">
+						{% endif %}
+
+						{% if not is_liked_bool %}
+						<button type="submit">
+							<img title="Добавляет +1 к рейтингу" class='plus' src="{% static 'img/plus.png' %}"></a>
+						</button>
+						{% else %}
+							<button type="submit">
+							<img title="Добавляет +1 к рейтингу" class='plus' src="{% static 'img/ok.png' %}"></a>
+						</button>
+						{% endif %}
+
+						
+					</form>
+					<!--     Likes        -->
+
 
 
 				</div>

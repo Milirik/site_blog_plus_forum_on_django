@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'captcha',
     'ckeditor',
+    'likes.apps.LikesConfig'
     
 ]
 

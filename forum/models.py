@@ -83,3 +83,18 @@ class SubAnswer(models.Model):
 		verbose_name='Ответ на комментарий'
 		verbose_name_plural = 'Ответы на комментарии'
 		ordering = ['date_of_creation']
+
+
+
+class ForumLikes(models.Model):
+	discussion = models.ForeignKey(Discussion, on_delete=models.SET_NULL, null=True, verbose_name='Дискуссия')
+	liked_by = models.ForeignKey(AdvUser, on_delete=models.SET_NULL, null=True, verbose_name='Поставил лайк')
+	like = models.BooleanField('Like', default=False)
+	date_of_creation = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Создано')
+
+	def __str__(self):
+		return f'{self.liked_by.username}:{self.discussion.text[0:10]} - {self.like}'
+
+	class Meta:
+		verbose_name='Лайк'
+		verbose_name_plural = 'Лайки'

@@ -100,3 +100,4 @@ class AboutPage(models.Model):
 
 	class Meta:
 		verbose_name='Про меня'
+

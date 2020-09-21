@@ -220,3 +220,30 @@ def profile(request):
 	return render(request, 'forum/profile.html')
 	
 
+# Likes
+class AddLikeView(View):
+	def post(self, request, *args, **kwargs):
+		discussion_id = int(request.POST.get('discussion_id'))
+		user_id = int(request.POST.get('user_id'))
+
+		user_inst = AdvUser.objects.get(pk=user_id)
+		discussion_inst = Discussion.objects.get(pk=discussion_id)
+
+		try:
+			forum_likes_inst = ForumLikes.objects.get(discussion=discussion_inst, liked_by=user_inst)
+		except Exception as e:
+			forum_likes = ForumLikes(discussion=discussion_inst, liked_by=user_inst, like=True)
+			forum_likes.save()
+
+		return redirect('forum:index_name')
+
+class RemoveLikeView(View):
+	def post(self, request, *args, **kwargs):
+		forum_likes_id = int(request.POST.get('forum_likes_id'))
+		print('hey', forum_likes_id)
+		forum_likes_inst = ForumLikes.objects.get(pk=forum_likes_id)
+		forum_likes_inst.delete()
+		# forum_likes_inst = ForumLikes.objects.get(id=forum_likes_id)
+		# forum_likes_inst.delete()
+
+		return redirect('forum:index_name')

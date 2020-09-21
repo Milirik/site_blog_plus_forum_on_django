@@ -26,6 +26,9 @@ urlpatterns = [
 	path('logout/', ForumLogoutView.as_view(), name='logout_name'),
 	path('login/', ForumLoginView.as_view(), name='login_name'),
 	
+	path('add_like/', AddLikeView.as_view(), name='add_like_name'),
+	path('remove_like/', RemoveLikeView.as_view(), name='remove_like_name'),
+
 
     path('', index, name='index_name'),
 

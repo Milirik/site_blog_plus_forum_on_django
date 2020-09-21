@@ -1,5 +1,5 @@
-from .models import Discussion, AdvUser
-from collections import Counter
+from .models import Discussion, AdvUser, ForumLikes
+from collections import Counter 
 
 def forum_context_processor(request):
 	context = {}
@@ -9,8 +9,14 @@ def forum_context_processor(request):
 
 	if AdvUser.objects.count() >= 3:
 		top = {}
+		# for cur_user in AdvUser.objects.all():
+		# 	print(f'diss - {Discussion.objects.filter(creator=cur_user.pk)}')
+		# 	top[cur_user] = sum([dis.rating for dis in Discussion.objects.filter(creator=cur_user.pk)])
+		# print(top)
+
 		for cur_user in AdvUser.objects.all():
-			top[cur_user] = sum([dis.rating for dis in Discussion.objects.filter(creator=cur_user.pk)])
+			top[cur_user] = sum([dis.forumlikes_set.all().count() for dis in Discussion.objects.filter(creator=cur_user.pk)])
+
 
 		k = Counter(top)
 		high = k.most_common(3) 
