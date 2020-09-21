@@ -12,7 +12,7 @@ def forum_context_processor(request):
 				context['popular_discuss'] = dis
 
 
-	context['user_rating'] = sum([dis.rating for dis in Discussion.objects.filter(creator=request.user.pk)])
+	context['user_rating'] = sum([dis.forumlikes_set.all().count() for dis in Discussion.objects.filter(creator=request.user.pk)])
 
 	if AdvUser.objects.count() >= 3:
 		top = {}
