@@ -36,6 +36,8 @@ def check_for_constraint(request):
 
 # Pages
 def index(request):
+
+	
 	categories = Category.objects.all()
 	return render(request, 'forum/index.html', 
 		context={
